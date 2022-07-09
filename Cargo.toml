@@ -2,7 +2,13 @@
 name = "shadowed"
 version = "0.1.0"
 edition = "2021"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+authors = ["Shadorain"]
+repository = "https://github.com/Shadorain/Shadowed"
+description = "** A simple yet complex, shadow fast, rust text editor, to run in the shadows **"
+readme = "README.md"
+license = "BSD-3-Clause"
+keywords = ["text_editor", "vim-like", "shado", "movement", "config"]
+categories = ["command-line-utilities", "command-line-interface", "text-editors"]
 
 [dependencies]
+crossterm = "0.24.0"
