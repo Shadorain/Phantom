@@ -23,6 +23,12 @@ pub struct Rgb {
     g: u8,
     b: u8,
 }
+impl From<Rgb> for s::Color {
+    fn from(rgb: Rgb) -> s::Color {
+        let Rgb { r, g, b } = rgb;
+        s::Color::Rgb { r, g, b }
+    }
+}
 
 #[derive(Clone, Copy)]
 pub struct Size {
@@ -94,13 +100,13 @@ impl Terminal {
 
     pub fn fg_set(&mut self, rgb: Rgb) -> Result<&mut Self> {
         queue!(self._stdout,
-            s::SetForegroundColor(s::Color::Rgb { r: rgb.r, g: rgb.g, b: rgb.b })
+            s::SetForegroundColor(rgb.into())
         )?;
         Ok(self)
     }
     pub fn bg_set(&mut self, rgb: Rgb) -> Result<&mut Self> {
         queue!(self._stdout,
-            s::SetBackgroundColor(s::Color::Rgb { r: rgb.r, g: rgb.g, b: rgb.b })
+            s::SetBackgroundColor(rgb.into())
         )?;
         Ok(self)
     }
