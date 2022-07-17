@@ -13,3 +13,4 @@ categories = ["command-line-utilities", "command-line-interface", "text-editors"
 [dependencies]
 crossterm = "0.24.0"
 thiserror = "1.0"
+ropey = "1.5"

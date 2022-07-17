@@ -1,5 +1,6 @@
 mod terminal;
 mod editor;
+mod document;
 
 use editor::Editor;
 
