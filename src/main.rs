@@ -1,6 +1,7 @@
 mod terminal;
-use crossterm::Result;
-use terminal::Terminal;
+mod editor;
+
+use editor::Editor;
 
 pub const NAME: &str =  env!("CARGO_PKG_NAME");
 pub const AUTHOR: &str = env!("CARGO_PKG_AUTHORS");
@@ -9,7 +10,5 @@ pub const DESCRIPTION: &str = env!("CARGO_PKG_DESCRIPTION");
 pub const REPOSITORY: &str = env!("CARGO_PKG_REPOSITORY");
 
 fn main() {
-    let mut terminal = Terminal::new().expect("Failed to initialize terminal");
-    terminal.startup();
-    terminal.cleanup();
+    let editor = Editor::new(); //.expect("Failed to initialize editor");
 }
