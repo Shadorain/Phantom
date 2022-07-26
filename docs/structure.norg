@@ -1,0 +1,52 @@
+@document.meta
+title: Structure
+description: Internal program structure documentation
+authors: Shadorain
+categories: docs
+created: 2022-07-23
+version: 0.0.11
+@end
+
+= TOC
+
+* Editor
+  Link: {@ ../src/editor.rs}[Editor.rs]
+** Terminal
+   Link: {@ ../src/terminal.rs}[Terminal.rs]
+** Document
+   Link: {@ ../src/document.rs}[Document.rs]
+*** Fields
+*** Methods
+*** Enums
+**** CursorPosition
+     > Handles position relative to the cursor.
+     > Not to be confused with internal buffer position.
+     When passed to buffer, will be translated to map appropriately
+     to the proper position in the internal buffer.
+*** Buffer
+    Link: {@ ../src/buffer.rs}[Buffer.rs]
+**** Fields
+     - text: Rope
+**** Methods
+***** open
+      > Creates a new buffer based off of the passed file content.
+      > If the content is `None` then an empty Rope will be used.
+      $ Parameters:
+      - `content: Option<&str>`
+      $ Return:
+      - `Result<Self>`
+***** insert
+      $ Parameters: 
+      - `&mut self`
+      - `c: InsertItem`
+      - `pos: &Position`
+      $ Return:
+      - `Result<Self>`
+**** Enums
+***** InsertItem
+      > An item type to be used by insertion functions, needs to be
+      > unicode compliant
+      - Char
+      - String
+**** Ropey
+*** File
