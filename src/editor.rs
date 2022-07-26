@@ -19,9 +19,9 @@ impl Editor {
                 doc
             } else {
                 println!("{0}", doc.is_err());
-                Document::default()
+                Document::new()
             }
-        } else { Document::default() });
+        } else { Document::new() });
         
         Self {
             term: Terminal::new().expect("Failed to initialize terminal"),
