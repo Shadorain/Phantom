@@ -22,9 +22,9 @@ impl From<buffer::BufError> for DocError {
 type Result<T> = std::result::Result<T, DocError>;
 
 #[derive(Default, Clone)]
-pub struct CursorPosition {
-    pub x: u32,
-    pub y: u32,
+pub struct Position {
+    pub row: usize,
+    pub col: usize,
 }
 
 /// ┌─ Document Structure ─────────────┐
@@ -40,7 +40,7 @@ pub struct CursorPosition {
 /// └──────────────────────────────────┘
 pub struct Document {
     pub file_name: Option<String>,
-    current_pos: CursorPosition,
+    pos: Position,
     buf: Buffer,
 }
 
@@ -48,7 +48,7 @@ impl Document {
     pub fn new() -> Self {
         Self {
             file_name: None,
-            current_pos: CursorPosition::default(),
+            pos: Position::default(),
             buf: Buffer::new(),
         }
     }
@@ -58,7 +58,7 @@ impl Document {
         
         Ok(Self {
             file_name : Some(file_name.to_owned()),
-            current_pos: CursorPosition::default(),
+            pos: Position::default(),
             buf: Buffer::open(&Self::get_file_contents(file_name)?),
         })
     }

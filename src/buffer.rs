@@ -16,11 +16,6 @@ impl From<ropey::Error> for BufError {
 
 type Result<T> = std::result::Result<T, BufError>;
 
-enum InsertType {
-    Char,
-    String,
-}
-
 /// ┌─ Buffer Structure ───────────────────┐
 /// │ Handles the internal text management │
 /// │   of the Document structure.         │
@@ -48,7 +43,15 @@ impl Buffer {
         self.text.len_lines()
     }
 
-    pub fn insert(&mut self, c: InsertType, pos: &doc::CursorPosition) {
+    pub fn insert(&mut self, s: &str, pos: &doc::Position) -> Result<()> {
+        Ok(self.text.try_insert(self.get_idx(pos)?, s)?)
+    }
 
+    pub fn insert_char(&mut self, c: char, pos: &doc::Position) -> Result<()> {
+        Ok(self.text.try_insert_char(self.get_idx(pos)?, c)?)
+    }
+
+    fn get_idx(&self, pos: &doc::Position) -> Result<usize> {
+        Ok(self.text.try_line_to_char(pos.row)? + pos.col)
     }
 }

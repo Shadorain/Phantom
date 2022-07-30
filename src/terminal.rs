@@ -1,6 +1,7 @@
 use thiserror::Error;
 use std::io::{ Stdout, stdout, self, Write };
-use crossterm::{ cursor as c, execute, queue, terminal as t, style as s, ErrorKind };
+use crossterm::{ cursor as c, execute, queue, terminal as t, style as s,
+    event as e, ErrorKind };
 
 #[derive(Error, Debug)]
 pub enum TermError {
@@ -17,7 +18,6 @@ impl From<ErrorKind> for TermError {
     }
 }
 
-
 pub struct Rgb {
     r: u8,
     g: u8,
@@ -28,6 +28,14 @@ impl From<Rgb> for s::Color {
         let Rgb { r, g, b } = rgb;
         s::Color::Rgb { r, g, b }
     }
+}
+
+/// Event is a wrapper around crossterm's Event enum
+/// Note: Resize taken out because it should be handled immediately
+pub enum Event {
+    Key(e::KeyEvent),
+    Mouse(e::MouseEvent),
+    /* Resize(crossterm::event::Resize), */
 }
 
 #[derive(Clone, Copy)]
@@ -56,6 +64,22 @@ impl Terminal {
         Ok(self._stdout.flush()?)
     }
 
+
+    /* Read ----------------------------------------------------------------- */
+
+    /// Reads and returns an Event from the terminal
+    /// Handles resize events automatically
+    pub fn read_event(&mut self) -> Result<Event> {
+        loop {
+            match e::read()? {
+                e::Event::Key(key) => return Ok(Event::Key(key)),
+                e::Event::Mouse(mouse) => return Ok(Event::Mouse(mouse)),
+                e::Event::Resize(x, y) => {
+                    self.size = Size { cols: x, rows: y }
+                },
+            }
+        }
+    }
 
     /* Cursor --------------------------------------------------------------- */
 
