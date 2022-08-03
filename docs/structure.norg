@@ -9,6 +9,8 @@ version: 0.0.11
 
 = TOC
 
+* TODO
+  - [ ] screen.rs to abstract away terminal from editor.
 * Editor
   Link: {@ ../src/editor.rs}[Editor.rs]
 ** Terminal

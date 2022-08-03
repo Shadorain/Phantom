@@ -2,6 +2,8 @@ mod terminal;
 mod editor;
 mod document;
 mod buffer;
+mod command;
+mod keybind;
 
 use editor::Editor;
 
