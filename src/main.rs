@@ -2,8 +2,7 @@ mod terminal;
 mod editor;
 mod document;
 mod buffer;
-mod command;
-mod keybind;
+mod input;
 
 use editor::Editor;
 
@@ -13,6 +12,8 @@ pub const VERSION: &str = env!("CARGO_PKG_VERSION");
 pub const DESCRIPTION: &str = env!("CARGO_PKG_DESCRIPTION");
 pub const REPOSITORY: &str = env!("CARGO_PKG_REPOSITORY");
 
-fn main() {
-    let editor = Editor::new(); //.expect("Failed to initialize editor");
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let mut editor = Editor::new()?; //.expect("Failed to initialize editor");
+    editor.run()?;
+    Ok(())
 }

@@ -11,10 +11,64 @@ version: 0.0.11
 
 * TODO
   - [ ] screen.rs to abstract away terminal from editor.
+  - [-] Documentation
+  -- [ ] Terminal
+  -- [-] Document
+  -- [-] Buffer
+  -- [ ] Editor
+  -- [-] Keybind
 * Editor
   Link: {@ ../src/editor.rs}[Editor.rs]
 ** Terminal
    Link: {@ ../src/terminal.rs}[Terminal.rs]
+** Keybind
+   Link: {@ ../src/keybind.rs}[Keybind.rs]
+*** keybind::Keybind
+**** Fields
+     - key: KeyEvent
+     - command: Command
+**** Methods
+***** fmt::Display
+      > Creates a new buffer based off of the passed file content.
+      $ Modifiers
+      - Control: `C`
+      - Shift: `S`
+      - Alt: `M`
+      $ KeyCode
+      - Char(c): `c`
+      - _: `T`
+****** Examples
+       - `<C-S-b>`
+       - `<C-A-d>`
+       - `<S-Backspace>`
+       - `<C-Left>`
+       - `<M-f>`
+       - `<d>`
+       - `<Enter>/<CR>`
+**** Enums
+*** keybind::Keybinds
+**** Fields
+     - pub keybinds: HashMap<KeyEvent, Keybind>
+**** Methods
+***** add
+      > Adds a keybind to the keybinds hashmap
+      $ Parameters:
+      - `key: KeyEvent`
+      - `command: Command`
+***** get
+      > Retrieves the keybind for the given key.
+      > Returns None if no keybind exists for the given key.
+      $ Parameters:
+      - `key: KeyEvent`
+      $ Return:
+      - `Option<Command>`
+**** Enums
+*** Functions
+**** set_default_keybind
+     > Returns a populated instance of Keybinds with default
+     > keybinds set.
+     $ Return:
+     - `Keybinds`
 ** Document
    Link: {@ ../src/document.rs}[Document.rs]
 *** Fields
@@ -23,8 +77,6 @@ version: 0.0.11
 **** +CursorPosition+ -> ^Position^
      > Handles position relative to the cursor.
      > Not to be confused with internal buffer position.
-     When passed to buffer, will be translated to map appropriately
-     to the proper position in the internal buffer.
 **** Position
      > Handles position relative to the row and column.
      When passed to buffer, will be translated to map appropriately

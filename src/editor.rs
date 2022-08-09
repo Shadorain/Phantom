@@ -1,18 +1,18 @@
 use std::env;
-
-use crossterm::event::KeyEvent;
 use thiserror::Error;
 
-use crate::terminal::{Terminal, TermError, Event};
+use crate::input::{Input, InputError};
+use crate::terminal::{Terminal, TermError};
 use crate::document::{Document, DocError};
-use crate::command::EditCommand;
 
 #[derive(Error, Debug)]
 pub enum EditorError {
-    #[error("Err: couldn't open document: {0}")]
+    #[error("Terminal Err: {0}")]
     Terminal(TermError), /* -> ScreenError when implemented */
-    #[error("Err: couldn't close document: {0}")]
+    #[error("Document Err: {0}")]
     Document(DocError),
+    #[error("Input Err: {0}")]
+    Input(InputError),
 }
 impl From<TermError> for EditorError {
     fn from(err: TermError) -> EditorError {
@@ -24,34 +24,35 @@ impl From<DocError> for EditorError {
         EditorError::Document(err)
     }
 }
+impl From<InputError> for EditorError {
+    fn from(err: InputError) -> EditorError {
+        EditorError::Input(err)
+    }
+}
 
 type Result<T> = std::result::Result<T, EditorError>;
 
 pub struct Editor {
     term: Terminal,
     documents: Vec<Document>,
+    input: Input,
 }
 
 impl Editor {
     /// Creates a new Editor instance.
-    pub fn new() -> Self {
+    pub fn new() -> Result<Self> {
         let args: Vec<String> = env::args().collect();
 
         let mut doc_vec: Vec<Document> = Vec::new();
         doc_vec.push(if let Some(file_name) = args.get(1) {
-            let doc = Document::open(file_name);
-            if let Ok(doc) = doc {
-                doc
-            } else {
-                println!("{0}", doc.is_err());
-                Document::new()
-            }
+            Document::open(file_name)?
         } else { Document::new() });
-        
-        Self {
-            term: Terminal::new().expect("Failed to initialize terminal"),
+
+        Ok(Self {
+            term: Terminal::new()?,
             documents: doc_vec,
-        }
+            input: Input::new(),
+        })
     }
 
     /// Main loop of the editor.
@@ -59,21 +60,18 @@ impl Editor {
         loop {
             // self.term.clear();
             self.refresh()?;
-            self.read_input()?;
+            self.input.input_handler(&mut self.term)?;
         }
     }
 
-    fn read_input(&mut self) -> Result<()> {
-        let e = self.term.read_event()?;
-        match e {
-            Event::Key(key) => {},
-            Event::Mouse(_) => {},
-        }
+    /// Will move to `screen.refresh`
+    fn refresh(&mut self) -> Result<()> {
+        self.term.cursor_hide()?;
+
         Ok(())
     }
 
-    /// Will move to screen.refresh
-    fn refresh(&mut self) -> Result<()> {
-        unimplemented!();
+    fn clear_screen(&mut self) -> Result<()> {
+        Ok(self.term.clear_screen()?.cursor_position(0, 0)?.flush()?)
     }
 }

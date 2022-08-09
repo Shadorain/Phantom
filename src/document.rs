@@ -58,8 +58,7 @@ impl Document {
         
         Ok(Self {
             file_name : Some(file_name.to_owned()),
-            pos: Position::default(),
-            buf: Buffer::open(&Self::get_file_contents(file_name)?),
+            pos: Position::default(), buf: Buffer::open(&Self::get_file_contents(file_name)?),
         })
     }
 
