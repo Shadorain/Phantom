@@ -1,7 +1,9 @@
 mod terminal;
 mod editor;
+mod log;
 mod document;
 mod buffer;
+mod screen;
 mod input;
 
 use editor::Editor;

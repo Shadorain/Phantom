@@ -9,16 +9,72 @@ version: 0.0.11
 
 = TOC
 
+* Ideas
+  - `Screens`: a collection of Screen objects that have all their own handling
+* Scratch
+  Screen needs to be used by editor, editor dropping a few things
+
+  Editor only returns result from new, others are handled unless lethal
+
+  Status bar i still need to figure out... i do like my idea of events tho for the diff components
 * TODO
-  - [ ] screen.rs to abstract away terminal from editor.
+  - [x] screen.rs
   - [-] Documentation
   -- [ ] Terminal
   -- [-] Document
   -- [-] Buffer
   -- [ ] Editor
   -- [-] Keybind
-* Editor
-  Link: {@ ../src/editor.rs}[Editor.rs]
+* Project Structures
+** Editor
+   Link: {@ ../src/editor.rs}[Editor.rs]
+*** Errors
+    $ EditorError:
+    - `Terminal(TermError)`
+    - `Document(DocError)`
+    - `Input(InputError)`
+*** Fields
+    - `term: Terminal`
+    - ... (not set in stone)
+*** Methods
+**** new
+     > Creates a new Editor instance
+     > NOTE: Propogates error
+     $ Return:
+     - `Result<Self>`
+**** push
+     > Pushes a message into the log queue
+     > Writes to the log file if setup
+     > NOTE: Doesn't propogate error, pushes into queue
+     $ Parameters:
+     - `msg: &str`
+** Log
+   Link: {@ ../src/log.rs}[Log.rs]
+*** Fields
+    - `queue: VecDeque<String>`
+    -- would like to have own LogMsg trait instead of String eventually
+    - `file: Option<File>`
+*** Methods
+**** with_file
+     > Sets up the file to log to
+     > NOTE: Doesn't propogate error, pushes into queue
+     $ Parameters:
+     - `filename: Option<&str>`
+**** push
+     > Pushes a message into the log queue
+     > Writes to the log file if setup
+     > NOTE: Doesn't propogate error, pushes into queue
+     $ Parameters:
+     - `msg: &str`
+**** pop
+     > Pops a message off the log queue
+** Screen
+   Link: {@ ../src/screen.rs}[Screen.rs]
+*** Fields
+*** Methods
+*** Enums
+*** screen::StatusBar
+**** Traits
 ** Terminal
    Link: {@ ../src/terminal.rs}[Terminal.rs]
 ** Keybind

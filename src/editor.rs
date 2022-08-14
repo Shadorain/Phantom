@@ -1,9 +1,10 @@
 use std::env;
 use thiserror::Error;
 
+use crate::document::{DocError, Document};
 use crate::input::{Input, InputError};
-use crate::terminal::{Terminal, TermError};
-use crate::document::{Document, DocError};
+use crate::log::Log;
+use crate::terminal::{TermError, Terminal};
 
 #[derive(Error, Debug)]
 pub enum EditorError {
@@ -36,6 +37,7 @@ pub struct Editor {
     term: Terminal,
     documents: Vec<Document>,
     input: Input,
+    log: Log,
 }
 
 impl Editor {
@@ -46,19 +48,22 @@ impl Editor {
         let mut doc_vec: Vec<Document> = Vec::new();
         doc_vec.push(if let Some(file_name) = args.get(1) {
             Document::open(file_name)?
-        } else { Document::new() });
+        } else {
+            Document::new()
+        });
 
         Ok(Self {
             term: Terminal::new()?,
             documents: doc_vec,
             input: Input::new(),
+            log: Log::new(),
         })
     }
 
     /// Main loop of the editor.
     pub fn run(&mut self) -> Result<()> {
         loop {
-            // self.term.clear();
+            // self.clear_screen();
             self.refresh()?;
             self.input.input_handler(&mut self.term)?;
         }
