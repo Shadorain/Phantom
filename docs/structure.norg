@@ -73,13 +73,35 @@ version: 0.0.11
 *** Fields
 *** Methods
 *** Enums
+**** UpdateEvent
+     > Notifier to update components when necessary
+     - StatusBar,
+     - Document
 *** screen::StatusBar
+**** Fields
+     - `msg: Option<Box<dyn Status>>`
+     - `duration: Instant`
+**** Methods
+***** is_elapsed
+      > Determines whether status bar element has expired
+      $ Parameters:
+      - `ms: u128`
 **** Traits
+***** Status
+      - show(&self) -> String
+      -- Returns a String to display
 ** Terminal
    Link: {@ ../src/terminal.rs}[Terminal.rs]
-** Keybind
-   Link: {@ ../src/keybind.rs}[Keybind.rs]
-*** keybind::Keybind
+** Input
+   Link: {@ ../src/input.rs}[Input.rs]
+   -- SubLink: {@ ../src/keybind.rs}[Keybind.rs]
+   -- SubLink: {@ ../src/command.rs}[Command.rs]
+*** Errors
+    $ InputError:
+    - `Key(Keybind)`
+    - `Terminal(TermError)`
+    - `Command(CommandError)`
+*** input::keybind::Keybind
 **** Fields
      - key: KeyEvent
      - command: Command
@@ -102,7 +124,7 @@ version: 0.0.11
        - `<d>`
        - `<Enter>/<CR>`
 **** Enums
-*** keybind::Keybinds
+*** input::keybind::Keybinds
 **** Fields
      - pub keybinds: HashMap<KeyEvent, Keybind>
 **** Methods
@@ -119,6 +141,19 @@ version: 0.0.11
       $ Return:
       - `Option<Command>`
 **** Enums
+*** input::command::Command
+    > Can store and execute a list of commands
+**** Fields
+     - `edit_cmds: Vec<EditCommands>`
+**** Methods
+***** run
+      > Runs list of commands held in structure
+**** Enums
+***** EditCommand
+      - MoveLeft
+      - MoveDown
+      - MoveUp
+      - MoveRight
 *** Functions
 **** set_default_keybind
      > Returns a populated instance of Keybinds with default

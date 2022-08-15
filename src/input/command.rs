@@ -41,6 +41,7 @@ impl Command {
         Self { edit_cmds }
     }
 
+    /// Runs list of commands held in structure
     pub fn run(self) -> Result<()> {
         for cmd in self.edit_cmds {
             match cmd {

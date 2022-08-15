@@ -11,6 +11,10 @@ trait Status {
     fn show(&self) -> String;
 }
 
+/// Status bar component 
+///
+/// * `msg`: An optional generic Status trait type to be displayed
+/// * `duration`: determines duration of item being displayed
 struct StatusBar {
     msg: Option<Box<dyn Status>>,
     duration: Instant,
