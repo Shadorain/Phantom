@@ -1,5 +1,5 @@
+use std::{collections::{VecDeque, HashMap}, time::Instant};
 use thiserror::Error;
-use std::{collections::VecDeque, time::Instant};
 
 #[derive(Error, Debug)]
 pub enum ScreenError {
@@ -7,31 +7,33 @@ pub enum ScreenError {
     Screen,
 }
 
+type Result<T> = std::result::Result<T, ScreenError>;
+
 trait Status {
     fn show(&self) -> String;
 }
 
-/// Status bar component 
+/// Status bar component
 ///
 /// * `msg`: An optional generic Status trait type to be displayed
 /// * `duration`: determines duration of item being displayed
 struct StatusBar {
     msg: Option<Box<dyn Status>>,
-    duration: Instant,
+    start: Instant,
+    duration: u128,
 }
 
 impl StatusBar {
     fn new() -> Self {
         Self {
             msg: None,
-            duration: Instant::now(),
+            start: Instant::now(),
+            duration: 0,
         }
     }
     /// Determines if the Status duration has elapsed
-    ///
-    /// * `ms`: time in milliseconds since
-    fn is_elapsed(&self, ms: u128) -> bool {
-        self.duration.elapsed().as_millis() > ms
+    fn is_elapsed(&self) -> bool {
+        self.start.elapsed().as_millis() > self.duration
     }
 }
 
@@ -40,19 +42,29 @@ pub enum UpdateEvent {
     Document,
 }
 
-pub struct Screen {
+pub struct Screens {
     event_queue: VecDeque<UpdateEvent>,
     status_bar: Option<StatusBar>,
+    screen: HashMap<u16, Screen>,
 }
 
-impl Screen {
+struct Screen {
+    event_queue: VecDeque<UpdateEvent>,
+}
+
+impl Screens {
     pub fn new() -> Self {
         Self {
             event_queue: VecDeque::new(),
             status_bar: Some(StatusBar::new()),
+            screen: HashMap::new(),
         }
     }
-    pub fn update(&self, event: UpdateEvent) -> Result<()> {
+    pub fn send_update(&mut self, event: UpdateEvent) {
+        self.event_queue.push_back(event);
+    }
+    pub fn update(&mut self) -> Result<()> {
+        
         Ok(())
     }
-} 
+}

@@ -10,7 +10,42 @@ version: 0.0.11
 = TOC
 
 * Ideas
-  - `Screens`: a collection of Screen objects that have all their own handling
+** Screens -> Screen
+   > a collection of Screen objects that have all their own handling and components
+   @code neorg
+   DEPRECATED                                                                    ┌─────────────────────────── Screens ────────────────────────────┐
+    ┌──────────────┐                                                             │┌────────┬────────┬─────────┐                                   │
+    │ Screen Model │                                                             ││Screen 1│Screen 2│Screen 3 │                                   │
+    └──────────────┘                         ┌─────────┐                         │├────────┴────────┴─────────┴──────────────────────────────────┐│
+     NOTE: Only Screen 2 shown               │ Screens │                         ││ ┌──────────────────────────────────────────────────────────┐ ││
+      for example purposes                   └────┬────┘                         ││ │Document ...... also a Component                          │ ││
+                                  ┌─────────┬─────┴────┬──────────┐              ││ │                                                          │ ││
+     Update:                 ┌────┴───┐ ┌───┴────┐ ┌───┴────┐ ┌───┴────┐         ││ │                                                          │ ││
+      Screen(2,              │Screen 1│ │Screen 2│ │Screen 3│ │Screen 4│         ││ │                                                          │ ││
+       Component(1,          └────────┘ └───┬────┘ └────────┘ └────────┘         ││ │                                                          │ ││
+        Value                    ┌──────────┴─┬─────────────────┐                ││ │                                                          │ ││
+       )                         ▼            ▼                 ▼                ││ └──────────────────────────────────────────────────────────┘ ││
+      )                   ┌─────────────┐ ┌─────────────┐ ┌─────────────┐        ││ ┌────────────────────────Component─────────────────────────┐ ││
+                          │ Component 1 │ │ Component 2 │ │ Component 3 │        ││ └────────────────────────StatusLine────────────────────────┘ ││
+                          │ (StatusLine)│ │ (Document)  │ │ (Wtvr else) │        │└──────────────────────────────────────────────────────────────┘│
+                          └─────────────┘ └─────────────┘ └─────────────┘        └────────────────────────────────────────────────────────────────┘
+   @end
+   $$ Rules:
+   - Only one `Screens` instance open at a time
+   - `Screens` will fill the entire window
+   -- A `Screen` will tile into the `Screens`
+   - Can hold as many `Screen` elements as can handle within `Screens`
+   $$ 
+*** ...
+*** Screen
+    > A screen is made of a collection of Components that can be displayed on the screen
+    > Acts similar to a "Tab"
+**** Component
+     > A component is a single element that can be displayed on a screen
+** Screen
+*** trait Component
+    - render
+    - handle_event
 * Scratch
   Screen needs to be used by editor, editor dropping a few things
 
@@ -19,12 +54,13 @@ version: 0.0.11
   Status bar i still need to figure out... i do like my idea of events tho for the diff components
 * TODO
   - [x] screen.rs
+  - [-] Curses?
   - [-] Documentation
   -- [ ] Terminal
   -- [-] Document
   -- [-] Buffer
   -- [ ] Editor
-  -- [-] Keybind
+  -- [-] Keybind -> Input
 * Project Structures
 ** Editor
    Link: {@ ../src/editor.rs}[Editor.rs]
@@ -80,12 +116,11 @@ version: 0.0.11
 *** screen::StatusBar
 **** Fields
      - `msg: Option<Box<dyn Status>>`
-     - `duration: Instant`
+     - `start: Instant`
+     - `duration: u128`
 **** Methods
 ***** is_elapsed
       > Determines whether status bar element has expired
-      $ Parameters:
-      - `ms: u128`
 **** Traits
 ***** Status
       - show(&self) -> String
