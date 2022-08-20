@@ -1,40 +1,27 @@
-use std::{collections::{VecDeque, HashMap}, time::Instant};
+mod pane;
+mod status;
+mod workspace;
+
+use std::collections::{HashMap, VecDeque};
 use thiserror::Error;
+
+use self::workspace::Workspace;
 
 #[derive(Error, Debug)]
 pub enum ScreenError {
     #[error("Placeholder Err")]
-    Screen,
+    Component(ComponentError),
 }
 
-type Result<T> = std::result::Result<T, ScreenError>;
+#[derive(Error, Debug)]
+pub enum ComponentError {}
 
-trait Status {
-    fn show(&self) -> String;
-}
+pub type CResult<T> = std::result::Result<T, ComponentError>;
+type SResult<T> = std::result::Result<T, ScreenError>;
 
-/// Status bar component
-///
-/// * `msg`: An optional generic Status trait type to be displayed
-/// * `duration`: determines duration of item being displayed
-struct StatusBar {
-    msg: Option<Box<dyn Status>>,
-    start: Instant,
-    duration: u128,
-}
-
-impl StatusBar {
-    fn new() -> Self {
-        Self {
-            msg: None,
-            start: Instant::now(),
-            duration: 0,
-        }
-    }
-    /// Determines if the Status duration has elapsed
-    fn is_elapsed(&self) -> bool {
-        self.start.elapsed().as_millis() > self.duration
-    }
+pub trait Component {
+    fn draw(&self) -> CResult<()>;
+    fn update(&mut self) -> CResult<()>;
 }
 
 pub enum UpdateEvent {
@@ -42,29 +29,22 @@ pub enum UpdateEvent {
     Document,
 }
 
-pub struct Screens {
+pub struct Screen {
     event_queue: VecDeque<UpdateEvent>,
-    status_bar: Option<StatusBar>,
-    screen: HashMap<u16, Screen>,
+    workspaces: HashMap<u16, Workspace>,
 }
 
-struct Screen {
-    event_queue: VecDeque<UpdateEvent>,
-}
-
-impl Screens {
+impl Screen {
     pub fn new() -> Self {
         Self {
             event_queue: VecDeque::new(),
-            status_bar: Some(StatusBar::new()),
-            screen: HashMap::new(),
+            workspaces: HashMap::new(),
         }
     }
     pub fn send_update(&mut self, event: UpdateEvent) {
         self.event_queue.push_back(event);
     }
-    pub fn update(&mut self) -> Result<()> {
-        
+    pub fn update(&mut self) -> SResult<()> {
         Ok(())
     }
 }

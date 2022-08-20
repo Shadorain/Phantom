@@ -4,7 +4,7 @@ use thiserror::Error;
 use crate::document::{DocError, Document};
 use crate::input::{Input, InputError};
 use crate::log::Log;
-use crate::screen::Screens;
+use crate::screen::Screen;
 use crate::terminal::{TermError, Terminal};
 
 #[derive(Error, Debug)]
@@ -39,7 +39,7 @@ pub struct Editor {
     documents: Vec<Document>,
     input: Input,
     log: Log,
-    screens: Screens,
+    screen: Screen,
 }
 
 impl Editor {
@@ -59,7 +59,7 @@ impl Editor {
             documents: doc_vec,
             input: Input::new(),
             log: Log::new(),
-            screens: Screens::new(),
+            screen: Screen::new(),
         })
     }
 

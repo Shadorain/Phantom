@@ -2,11 +2,12 @@
 
 > ** A simple yet complex, shadow fast, rust text editor, to run in the shadows **
 
-## Ideas
+## Documentation
 
-## Goals
+[Structure](./docs/structure.norg)
 
-- [ ] Backend run by the power of Ropes!
-- [ ] Fully configurable TUI
-- [ ] To be quickly useable in any circumstance
+### Project Goals/Management
+
+Feel free to comment and watch the progress!
+[Trello Board](https://trello.com/b/bYBVGKS2)
 
