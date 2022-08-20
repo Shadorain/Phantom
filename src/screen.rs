@@ -19,18 +19,19 @@ pub enum ComponentError {}
 pub type CResult<T> = std::result::Result<T, ComponentError>;
 type SResult<T> = std::result::Result<T, ScreenError>;
 
-pub trait Component {
-    fn draw(&self) -> CResult<()>;
-    fn update(&mut self) -> CResult<()>;
-}
+pub enum Event { }
 
-pub enum UpdateEvent {
-    StatusBar,
-    Document,
+pub trait Component {
+    fn draw(&self) -> CResult<()> {
+        Ok(())
+    }
+    fn update(&mut self) -> CResult<()> {
+        Ok(())
+    }
 }
 
 pub struct Screen {
-    event_queue: VecDeque<UpdateEvent>,
+    event_queue: VecDeque<Event>,
     workspaces: HashMap<u16, Workspace>,
 }
 
@@ -41,7 +42,7 @@ impl Screen {
             workspaces: HashMap::new(),
         }
     }
-    pub fn send_update(&mut self, event: UpdateEvent) {
+    pub fn send_update(&mut self, event: Event) {
         self.event_queue.push_back(event);
     }
     pub fn update(&mut self) -> SResult<()> {
