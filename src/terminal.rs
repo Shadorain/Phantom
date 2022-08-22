@@ -77,6 +77,7 @@ impl Terminal {
                 e::Event::Resize(x, y) => {
                     self.size = Size { cols: x, rows: y }
                 },
+                _ => todo!(),
             }
         }
     }

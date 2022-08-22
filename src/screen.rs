@@ -1,3 +1,4 @@
+mod draw;
 mod pane;
 mod status;
 mod workspace;

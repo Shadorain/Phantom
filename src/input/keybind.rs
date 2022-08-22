@@ -49,6 +49,7 @@ impl fmt::Display for Keybind {
                 KeyCode::F(n) => { s = format!("F{}", n); &s },
                 KeyCode::Char(c) => { s = format!("{}", c); &s },
                 KeyCode::Esc => "Esc",
+                _ => todo!(),
             }
         )
     }

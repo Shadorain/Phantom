@@ -11,6 +11,11 @@ keywords = ["text_editor", "vim-like", "shado", "movement", "config"]
 categories = ["command-line-utilities", "command-line-interface", "text-editors"]
 
 [dependencies]
-crossterm = "0.24.0"
+# Utility
 thiserror = "1.0"
+
+# Terminal Interface
+crossterm = "0.25.0"
+
+# Buffer
 ropey = "1.5"
