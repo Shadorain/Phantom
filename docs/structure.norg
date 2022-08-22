@@ -1,6 +1,6 @@
 @document.meta
 title: Structure
-description: Internal program structure documentation
+description: Internal program structure documentation of Phantom
 authors: Shadorain
 categories: docs
 created: 2022-07-23
@@ -53,6 +53,8 @@ version: 0.0.11
 
   Status bar i still need to figure out... i do like my idea of events tho for the diff components
 * TODO
+  - [x] Rename to Phantom
+  - [-] Umbra TUI Framework library to take out screen aspects
   - [x] screen.rs
   - [-] Curses?
   - [-] Documentation

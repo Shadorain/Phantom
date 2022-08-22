@@ -1,6 +1,6 @@
-# Shadowed
+# Phantom
 
-> ** A simple yet complex, shadow fast, rust text editor, to run in the shadows **
+> ** A simple yet complex, swift like wind, rust text editor, to run in the shadows **
 
 ## Documentation
 

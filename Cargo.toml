@@ -1,13 +1,13 @@
 [package]
-name = "shadowed"
+name = "phantom"
 version = "0.1.0"
 edition = "2021"
 authors = ["Shadorain"]
-repository = "https://github.com/Shadorain/Shadowed"
+repository = "https://github.com/Shadorain/Phantom"
 description = "** A simple yet complex, shadow fast, rust text editor, to run in the shadows **"
 readme = "README.md"
-license = "BSD-3-Clause"
-keywords = ["text_editor", "vim-like", "shado", "movement", "config"]
+license = "GNU-3.0"
+keywords = ["text_editor", "vim-like", "phantom", "shado", "movement", "config"]
 categories = ["command-line-utilities", "command-line-interface", "text-editors"]
 
 [dependencies]
