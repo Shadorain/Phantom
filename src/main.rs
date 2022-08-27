@@ -1,21 +1,7 @@
-mod terminal;
-mod editor;
-mod log;
-mod document;
-mod buffer;
-mod screen;
-mod input;
-
-use editor::Editor;
-
-pub const NAME: &str =  env!("CARGO_PKG_NAME");
-pub const AUTHOR: &str = env!("CARGO_PKG_AUTHORS");
-pub const VERSION: &str = env!("CARGO_PKG_VERSION");
-pub const DESCRIPTION: &str = env!("CARGO_PKG_DESCRIPTION");
-pub const REPOSITORY: &str = env!("CARGO_PKG_REPOSITORY");
+use phantom::Phantom;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let mut editor = Editor::new()?; //.expect("Failed to initialize editor");
-    editor.run()?;
+    let mut phantom: Phantom = Phantom::new()?;
+    phantom.run()?;
     Ok(())
 }
