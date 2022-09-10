@@ -1,13 +1,39 @@
-# Phantom
+<div align="center">
 
-> ** A simple yet complex, swift like wind, rust text editor, to run in the shadows **
+<img src="res/phantom_logo.png" width=300>
 
-## Documentation
+<a href="Docs"> ![Docs](https://img.shields.io/docsrs/phantom-editor?color=37d4a7&logo=rust&style=for-the-badge)</a>
+<a href="Crates.io"> ![Crate](https://img.shields.io/crates/v/phantom-editor?color=ff4971&style=for-the-badge)</a>
+<a href="/LICENSE"> ![License](https://img.shields.io/badge/license-GPL%20v3-blueviolet?style=for-the-badge)</a>
+<a href="#wip"> ![Status](https://img.shields.io/badge/status-WIP-informational?style=for-the-badge&color=ff69b4) </a>
 
-[Structure](./docs/structure.norg)
+[Summary](#-summary)
+•
+[Roadmap](#-roadmap)
+•
+[Credits](#-credits)
+<br>
+[Docs](https://docs.rs/phantom-editor/0.1.0/phantom/)
 
-### Project Goals/Management
+</div>
+
+<div align="center">
+
+<br>
+
+# Summary
+
+</div>
+
+> A simple yet complex, swift like wind, blazingly fast, rust text editor, to run in the shadows
+
+## Roadmap
+
+To see what is being worked on checkout Phantom's [Trello Board](https://trello.com/b/bYBVGKS2)
 
 Feel free to comment and watch the progress!
-[Trello Board](https://trello.com/b/bYBVGKS2)
 
+
+## Credits
+
+Huge thank you to [Binx](https://github.com/Binx-Codes/) for the freaking sweet logo!
