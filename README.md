@@ -2,10 +2,10 @@
 
 <img src="res/phantom_logo_nobg_cropped.png" width=300>
 
-<a href="Docs"> ![Docs](https://img.shields.io/docsrs/phantom-editor?color=37d4a7&logo=rust&style=for-the-badge)</a>
-<a href="Crates.io"> ![Crate](https://img.shields.io/crates/v/phantom-editor?color=ff4971&style=for-the-badge)</a>
+<a href="https://docs.rs/phantom-editor/0.1.0/phantom/"> ![Docs](https://img.shields.io/docsrs/phantom-editor?color=37d4a7&logo=rust&style=for-the-badge)</a>
+<a href="https://crates.io/crates/phantom-editor"> ![Crate](https://img.shields.io/crates/v/phantom-editor?color=ff4971&style=for-the-badge)</a>
 <a href="/LICENSE"> ![License](https://img.shields.io/badge/license-GPL%20v3-blueviolet?style=for-the-badge)</a>
-<a href="#wip"> ![Status](https://img.shields.io/badge/status-WIP-informational?style=for-the-badge&color=ff69b4) </a>
+<a href="#roadmap"> ![Status](https://img.shields.io/badge/status-WIP-informational?style=for-the-badge&color=ff69b4) </a>
 
 [Summary](#summary)
 •
