@@ -5,7 +5,7 @@
 <a href="https://docs.rs/phantom-editor/latest/phantom/"> ![Docs](https://img.shields.io/docsrs/phantom-editor?color=37d4a7&logo=rust&style=for-the-badge)</a>
 <a href="https://crates.io/crates/asset-derive"> ![Crate](https://img.shields.io/crates/v/phantom-editor?color=ff4971&style=for-the-badge)</a>
 <a href="/LICENSE"> ![License](https://img.shields.io/badge/license-GPL%20v3-blueviolet?style=for-the-badge)</a>
-<a href="#wip"> ![Status](https://img.shields.io/badge/status-WIP-informational?style=for-the-badge&color=ff69b4) </a>
+<a href="#roadmap"> ![Status](https://img.shields.io/badge/status-WIP-informational?style=for-the-badge&color=ff69b4) </a>
 
 [Summary](#summary)
 •
